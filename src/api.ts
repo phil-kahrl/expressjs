@@ -20,5 +20,9 @@ api.get('/hello', (req, res) => {
   res.status(200).send({ message: 'hello world' });
 });
 
+api.post('/forecast', (req, res) => {
+  res.status(200).send({ message: req.lat });
+});
+
 // Version the api
 app.use('/api/v1', api);
