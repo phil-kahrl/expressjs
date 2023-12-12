@@ -32,6 +32,7 @@ api.get('/forecast', async (req, res) => {
   let data = await response.json();
   console.log("DATA")
   console.log(data)
+  res.setHeader("Access-Control-Allow-Origin", "*")
   res.status(200).send(data);
 });
 
