@@ -36,5 +36,10 @@ api.get('/forecast', async (req, res) => {
   res.status(200).send(data);
 });
 
+api.options('/forecast', async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.status(200).send({});
+});
+
 // Version the api
 app.use('/api/v1', api);
