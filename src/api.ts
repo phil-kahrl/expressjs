@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import fetch from 'node-fetch';
 
 export const app = express();
 
@@ -20,8 +21,18 @@ api.get('/hello', (req, res) => {
   res.status(200).send({ message: 'hello world' });
 });
 
-api.post('/forecast', (req, res) => {
-  res.status(200).send({ message: req.lat });
+api.post('/forecast', async (req, res) => {
+  let apiKey = process.env.OPEN_WEATHER_API_KEY;
+  let lat = req.body.lat
+  let lon = req.body.lon
+  let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+  let response = await fetch(url, {
+    headers: {'Content-Type': 'application/json'}
+  });
+  let data = await response.json();
+  console.log("DATA")
+  console.log(data)
+  res.status(200).send(data);
 });
 
 // Version the api
